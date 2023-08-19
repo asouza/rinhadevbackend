@@ -33,7 +33,7 @@ public class Pessoa {
     private @NotNull @Past LocalDate nascimento;
     //validacao que só pode aceitar palavras
     @ElementCollection
-    private List<@NotBlank @Size(max = 32) String> stack = new ArrayList<>();
+    private List<@NotBlank @Size(max = 32) @EhUmaPalavra String> stack = new ArrayList<>();
     @NotNull
     private UUID codigo = UUID.randomUUID();
 
@@ -46,7 +46,7 @@ public class Pessoa {
     public void setStack(@NotNull List<@NotBlank String> stack) {
         Assert.notNull(stack, "A lista de stack não pode ser nula");
         Assert.notEmpty(stack, "A lista de stack não pode ser vazia");
-        //relaxando a validacao de apenas numeros aqui.
+        //relaxando a validacao de apenas numeros aqui e também de tamanho
 
         this.stack = stack;
     }

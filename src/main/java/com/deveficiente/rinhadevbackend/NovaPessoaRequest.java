@@ -1,7 +1,6 @@
 package com.deveficiente.rinhadevbackend;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -9,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /*
@@ -32,17 +30,22 @@ public class NovaPessoaRequest {
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate nascimento;
-    //adicionar a validação de apenas palavras    
-    private List<@NotBlank @Size(max = 32)String> stack;
+    private List<@NotBlank @Size(max = 32) @EhUmaPalavra String> stack;
 
-    public NovaPessoaRequest(@NotBlank String apelido, @NotBlank String nome, @NotNull @Past LocalDate nascimento,
-            List<@NotBlank String> stack) {
+    public NovaPessoaRequest(@NotBlank String apelido, @NotBlank String nome, @NotNull @Past LocalDate nascimento) {
         super();
         this.apelido = apelido;
         this.nome = nome;
-        this.nascimento = nascimento;
+        this.nascimento = nascimento;                
+    }
+
+    //investigar pq eu preciso do getter aqui para ele continuar o fluxo de validacao
+    public List<String> getStack() {
+        return stack;
+    }
+
+    public void setStack(List<String> stack) {
         this.stack = stack;
-        
     }
 
     @Override

@@ -23,6 +23,7 @@ public class NovaPessoaController {
     @PostMapping("/pessoas")
     @Transactional
     public ResponseEntity<?> novaPessoa(@Valid @RequestBody NovaPessoaRequest request) {
+        System.out.println(request);
         Pessoa novaPessoa = request.toModel();
         entityManager.persist(novaPessoa);
         return ResponseEntity.created(URI.create("/pessoas/"+novaPessoa.getCodigo())).build();
