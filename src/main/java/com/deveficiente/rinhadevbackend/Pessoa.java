@@ -29,6 +29,7 @@ public class Pessoa {
     private @NotBlank String apelido;
     @Size(max = 100)
     @Column(unique = true)
+    //precisa criar o handler aqui para tratar a excecao de violacao de unicidade
     private @NotBlank String nome;
     private @NotNull @Past LocalDate nascimento;
     //validacao que só pode aceitar palavras
