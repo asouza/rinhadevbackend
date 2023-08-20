@@ -27,7 +27,7 @@ start-services:
 	@docker-compose -f $(DOCKER_COMPOSE_FILE) up -d
 
 start-services-local-dev:
-	@docker-compose -f $(DOCKER_COMPOSE_LOCAL_FILE) build                         
+	# @docker-compose -f $(DOCKER_COMPOSE_LOCAL_FILE) build                         
 	@docker-compose -f $(DOCKER_COMPOSE_LOCAL_FILE) up -d
 
 make stop:

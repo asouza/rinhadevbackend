@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.IndexColumn;
 import org.springframework.util.Assert;
 
 import jakarta.persistence.Column;
@@ -13,6 +14,7 @@ import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -37,7 +39,8 @@ public class Pessoa {
     @ElementCollection
     private List<@NotBlank @Size(max = 32) @EhUmaPalavra String> stack = new ArrayList<>();
     @NotNull
-    private UUID codigo = UUID.randomUUID();
+    private UUID codigo = UUID.randomUUID();    
+    private String pesquisaRapida;
 
     @Deprecated
     public Pessoa() {
@@ -46,15 +49,18 @@ public class Pessoa {
     public Pessoa(@NotBlank String apelido, @NotBlank String nome, @NotNull @Past LocalDate nascimento) {
                 this.apelido = apelido;
                 this.nome = nome;
-                this.nascimento = nascimento;                
+                this.nascimento = nascimento;   
+                this.pesquisaRapida = this.apelido.concat(this.nome);             
     }
 
     public void setStack(@NotNull List<@NotBlank String> stack) {
         Assert.notNull(stack, "A lista de stack não pode ser nula");
         Assert.notEmpty(stack, "A lista de stack não pode ser vazia");
-        //relaxando a validacao de apenas numeros aqui e também de tamanho
-
+        //relaxando a validacao de apenas numeros aqui e também de tamanho        
         this.stack = stack;
+        this.pesquisaRapida = this.pesquisaRapida.concat(this.stack
+            .stream()
+            .reduce("", (a, b) -> a.concat(b)));
     }
 
     public UUID getCodigo() {

@@ -13,6 +13,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, UUID> {
 
     public Optional<Pessoa> findByCodigo(UUID codigo);
 
-    @Query("select p from Pessoa p join p.stack s where p.nome like %:t% or p.apelido like %:t% or s like %:t%")
+    @Query("select p from Pessoa p where p.pesquisaRapida like %:t%")
     public Page<Pessoa> pesquisaEmTudo(@Param("t") String termo, PageRequest paginacao);
 }
