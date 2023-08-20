@@ -1,6 +1,7 @@
 package com.deveficiente.rinhadevbackend;
 
 import java.net.URI;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,17 +16,26 @@ import jakarta.validation.Valid;
 public class NovaPessoaController {
 
     private final EntityManager entityManager;
+    private final AsyncExecutor asyncExecutor;
+    private final TransactionRunner transactionRunner;
 
-    public NovaPessoaController(EntityManager entityManager) {
+    public NovaPessoaController(EntityManager entityManager, AsyncExecutor asyncExecutor, TransactionRunner transactionRunner) {
         this.entityManager = entityManager;
+        this.asyncExecutor = asyncExecutor;
+        this.transactionRunner = transactionRunner;
     }
     
     @PostMapping("/pessoas")
-    @Transactional
-    public ResponseEntity<?> novaPessoa(@Valid @RequestBody NovaPessoaRequest request) {
-        System.out.println(request);
+    public CompletableFuture<ResponseEntity<?>> novaPessoa(@Valid @RequestBody NovaPessoaRequest request) {
         Pessoa novaPessoa = request.toModel();
-        entityManager.persist(novaPessoa);
-        return ResponseEntity.created(URI.create("/pessoas/"+novaPessoa.getCodigo())).build();
+
+        return asyncExecutor.execute(() -> {
+            transactionRunner.execute(() -> entityManager.persist(novaPessoa));
+            return novaPessoa;
+        }).thenApply(pessoaGravadaNoBanco -> {
+            return ResponseEntity.created(URI.create("/pessoas/"+pessoaGravadaNoBanco.getCodigo())).build();
+        });
+
+        
     }
 }
