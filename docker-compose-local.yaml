@@ -20,7 +20,7 @@ services :
     build: .
     environment:      
       - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db-postgresql:5433/rinhadebackend
+      - DATABASE_URL=jdbc:postgresql://db:5433/rinhadebackend
       - DATABASE_USERNAME=postgres:alpine
       - DATABASE_PASSWORD=postgres      
     depends_on:
@@ -31,8 +31,8 @@ services :
     build: .
     environment:
       - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db-postgresql:5433/rinhadebackend
-      - DATABASE_USERNAME=postgres:alpine
+      - DATABASE_URL=jdbc:postgresql://db:5433/rinhadebackend
+      - DATABASE_USERNAME=postgres
       - DATABASE_PASSWORD=postgres      
     depends_on:
       - db
@@ -41,7 +41,7 @@ services :
     container_name: postgres_container
     image: postgres
     environment:
-      POSTGRES_USER: postgres:alpine
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: rinhadebackend
       PGDATA: /data/postgres
