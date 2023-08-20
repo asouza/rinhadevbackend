@@ -68,6 +68,7 @@
 						<release>20</release>
 						<compilerArgs>
 							<arg>--enable-preview</arg>
+							<arg>-parameters</arg>
 						</compilerArgs>
 					</configuration>
 			 </plugin>			
