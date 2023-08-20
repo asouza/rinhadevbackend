@@ -1,5 +1,6 @@
 # Variáveis para controle do Makefile
 DOCKER_COMPOSE_FILE = docker-compose.yaml
+DOCKER_COMPOSE_LOCAL_FILE = docker-compose-local.yaml
 JAVA_SERVICE_NAME = rinhadebackend
 DOCKERHUB_URL ?= ""
 DOCKERHUB_TOKEN ?= ""
@@ -26,7 +27,8 @@ start-services:
 	@docker-compose -f $(DOCKER_COMPOSE_FILE) up -d
 
 start-services-local-dev:
-	@docker-compose -f docker-compose-local.yaml up -d
+	@docker-compose -f $(DOCKER_COMPOSE_LOCAL_FILE) build                         
+	@docker-compose -f $(DOCKER_COMPOSE_LOCAL_FILE) up -d
 
 make stop:
 	@if [ -z "$$(docker ps -q)" ]; then \
