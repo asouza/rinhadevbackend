@@ -38,6 +38,10 @@ public class Pessoa {
     @NotNull
     private UUID codigo = UUID.randomUUID();
 
+    @Deprecated
+    public Pessoa() {
+    }
+
     public Pessoa(@NotBlank String apelido, @NotBlank String nome, @NotNull @Past LocalDate nascimento) {
                 this.apelido = apelido;
                 this.nome = nome;
@@ -54,6 +58,22 @@ public class Pessoa {
 
     public UUID getCodigo() {
         return codigo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public LocalDate getNascimento() {
+        return nascimento;
+    }
+
+    public List<String> getStack() {
+        return stack;
     }
 
 }
