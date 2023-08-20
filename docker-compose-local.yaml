@@ -1,4 +1,4 @@
-version : “3”
+version : "3"
 services :
   nginx:
     container_name: nginx
@@ -20,7 +20,7 @@ services :
     build: .
     environment:      
       - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5433/rinhadebackend
       - DATABASE_USERNAME=postgres:alpine
       - DATABASE_PASSWORD=postgres      
     depends_on:
@@ -31,7 +31,7 @@ services :
     build: .
     environment:
       - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5433/rinhadebackend
       - DATABASE_USERNAME=postgres:alpine
       - DATABASE_PASSWORD=postgres      
     depends_on:
@@ -48,7 +48,7 @@ services :
     volumes:
        - postgres-volume:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5433"
     restart: unless-stopped
 
 volumes:

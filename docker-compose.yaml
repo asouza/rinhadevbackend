@@ -1,4 +1,4 @@
-version : “3”
+version : "3"
 services :
   nginx:
     container_name: nginx
@@ -19,7 +19,10 @@ services :
     container_name: rinhadebackend_1
     image: oldimage:latest
     environment:
-      DATABASE_URL: "jdbc:postgresql://postgres:5432/db"
+      - SERVER_PORT=8080
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_USERNAME=postgres:alpine
+      - DATABASE_PASSWORD=postgres      
     depends_on:
       - db
       
@@ -27,7 +30,10 @@ services :
     container_name: rinhadebackend_2
     image: oldimage:latest
     environment:
-      DATABASE_URL: "jdbc:postgresql://postgres:5432/db"
+      - SERVER_PORT=8080
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_USERNAME=postgres:alpine
+      - DATABASE_PASSWORD=postgres      
     depends_on:
       - db
       
