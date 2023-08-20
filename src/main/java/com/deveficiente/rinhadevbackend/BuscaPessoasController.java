@@ -20,7 +20,7 @@ public class BuscaPessoasController {
     }
     
     @GetMapping("/pessoas")
-    public List<DetalhePessoaResponse> busca(@RequestParam String t){
+    public List<DetalhePessoaResponse> busca(@RequestParam("t") String t){
         Page<Pessoa> pessoas = pessoaRepository.pesquisaEmTudo(t,PageRequest.of(0, 50));        
         List<DetalhePessoaResponse> resultado = pessoas.map(DetalhePessoaResponse::new).toList();
         return resultado;
