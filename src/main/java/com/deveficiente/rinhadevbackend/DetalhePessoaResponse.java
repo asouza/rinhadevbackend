@@ -10,11 +10,11 @@ public class DetalhePessoaResponse {
     public final String nascimento;
     public final List<String> stack;
     public final String nome;
-    public final UUID idade;
+    public final UUID id;
 
     public DetalhePessoaResponse(Pessoa pessoa) {
         this.nome = pessoa.getNome();
-        this.idade = pessoa.getCodigo();
+        this.id = pessoa.getCodigo();
         this.apelido = pessoa.getApelido();
         this.nascimento = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(pessoa.getNascimento());
         this.stack = pessoa.getStack();
