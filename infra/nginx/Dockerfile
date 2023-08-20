@@ -33,7 +33,7 @@ RUN tar -zxC /usr/src -f nginx.tar.gz && \
     apk del .build-deps && \
     rm -rf /usr/src
 
-EXPOSE 80
+EXPOSE 9999
 
 STOPSIGNAL SIGTERM
 
