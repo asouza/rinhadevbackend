@@ -6,7 +6,7 @@ services :
       context: .
       dockerfile: ./infra/nginx/Dockerfile
     ports:
-      - 80:80
+      - 9999:9999
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./infra/nginx/loadbalancer/include:/etc/nginx/include:ro

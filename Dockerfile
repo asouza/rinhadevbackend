@@ -17,4 +17,4 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","com.deveficiente.rinhadevbackend.RinhadevbackendApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","--enable-preview","com.deveficiente.rinhadevbackend.RinhadevbackendApplication"]

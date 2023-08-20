@@ -6,7 +6,7 @@ services :
       context: .
       dockerfile: ./infra/nginx/Dockerfile
     ports:
-      - 80:80
+      - 9999:9999
     volumes:
       - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./infra/nginx/loadbalancer/include:/etc/nginx/include:ro
@@ -18,8 +18,11 @@ services :
   rinhadebackend_1:
     container_name: rinhadebackend_1
     build: .
-    environment:
-      DATABASE_URL: "jdbc:postgresql://postgres:5432/db"
+    environment:      
+      - SERVER_PORT=8080
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_USERNAME=postgres:alpine
+      - DATABASE_PASSWORD=postgres      
     depends_on:
       - db
       
@@ -27,7 +30,10 @@ services :
     container_name: rinhadebackend_2
     build: .
     environment:
-      DATABASE_URL: "jdbc:postgresql://postgres:5432/db"
+      - SERVER_PORT=8080
+      - DATABASE_URL=jdbc:postgresql://db-postgresql:5432/rinhadebackend
+      - DATABASE_USERNAME=postgres:alpine
+      - DATABASE_PASSWORD=postgres      
     depends_on:
       - db
       
