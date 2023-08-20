@@ -22,7 +22,7 @@ O arquivo docker compose contém:
 
 ```mermaid
 flowchart LR
-    USER[User] -->|request| A[Nginx]
+    USER[User] -->|request http://localhost| A[Nginx]
     A[Nginx] --> B(app1)
     A[Nginx] --> C(app2)
     B(app1) --> D[(Database)]
