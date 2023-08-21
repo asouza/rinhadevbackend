@@ -46,6 +46,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -58,6 +59,9 @@
 					<jvmArguments>
 						--enable-preview					
 					</jvmArguments>
+					<compilerArguments>
+						--enable-preview
+                    </compilerArguments>					
 				</configuration>				
 			</plugin>
 			<plugin>
@@ -69,9 +73,23 @@
 						<compilerArgs>
 							<arg>--enable-preview</arg>
 							<arg>-parameters</arg>
-						</compilerArgs>
+						</compilerArgs>						
 					</configuration>
-			 </plugin>			
+			 </plugin>	
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<configuration>
+					<release>20</release>
+					<compilerArgs>
+						<arg>--enable-preview</arg>
+						<arg>-parameters</arg>
+					</compilerArgs>
+					<compilerArguments>
+						--enable-preview
+                    </compilerArguments>										
+				</configuration>				
+			</plugin>			 		
 		</plugins>
 	</build>
 	<repositories>
