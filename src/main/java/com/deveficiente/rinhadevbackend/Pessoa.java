@@ -37,6 +37,7 @@ public class Pessoa {
     private @NotNull @Past LocalDate nascimento;
     //validacao que só pode aceitar palavras
     @ElementCollection
+    //removi o EhUmaPalavra pq tava dand NoSuchMethodError para o construtor. Confesso que não saquei... Deu alguma zica em versao de lib, acho.
     private List<@NotBlank @Size(max = 32) String> stack = new ArrayList<>();
     @NotNull
     private UUID codigo = UUID.randomUUID();    
