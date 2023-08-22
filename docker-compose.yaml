@@ -1,75 +1,46 @@
 version : "3"
-services :
-  nginx:
-    container_name: nginx
-    build:
-      context: .
-      dockerfile: ./infra/nginx/Dockerfile
-    ports:
-      - 9999:9999
-    volumes:
-      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./infra/nginx/loadbalancer/include:/etc/nginx/include:ro
-      - ./infra/nginx/loadbalancer/conf.d:/etc/nginx/conf.d:ro
-    depends_on:
-      - rinhadebackend_1
-      - rinhadebackend_2
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: '0.25GB'            
-
-  rinhadebackend_1:
-    container_name: rinhadebackend_1
-    image: oldimage:latest
-    environment:
-      - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db:5432/rinhadebackend
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres      
-    depends_on:
-      - db
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: '1.25GB'            
-      
-  rinhadebackend_2:
-    container_name: rinhadebackend_2
-    image: oldimage:latest
-    environment:
-      - SERVER_PORT=8080
-      - DATABASE_URL=jdbc:postgresql://db:5432/rinhadebackend
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres      
-    depends_on:
-      - db
-    deploy:
-      resources:
-        limits:
-          cpus: '0.25'
-          memory: '1.25GB'                  
-      
+services :    
   db:
-    container_name: postgres_container
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: rinhadebackend
-      PGDATA: /data/postgres
-    volumes:
-       - postgres-volume:/var/lib/postgresql/data
+    image: postgres:latest
+    command: postgres -c 'max_connections=600'
     ports:
       - "5432:5432"
-    restart: unless-stopped
     deploy:
       resources:
         limits:
           cpus: '0.75'
-          memory: '0.5GB'        
+          memory: '0.5GB'    
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rinhadebackend
+      PGDATA: /data/postgres 
+    volumes:
+       - postgres-local-volume:/var/lib/postgresql-local/data                  
+    expose:
+      - 5432   
+
+  rinhadebackend_1:
+    container_name: rinhadebackend_1
+    image: docker.io/library/rinhadevbackend:0.0.1-SNAPSHOT
+    environment:      
+      - SERVER_PORT=8080
+      - DATABASE_URL=jdbc:postgresql://db:5432/rinhadebackend
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres      
+    depends_on:
+      - db
+    ports:
+      - 8080:8080      
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: '1.25GB'                
 
 volumes:
-    postgres-volume:
+    postgres-local-volume:
+
+networks:
+  default:
+    name: postgre-service_default          

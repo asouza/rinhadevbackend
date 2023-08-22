@@ -30,7 +30,7 @@ public class NovaPessoaRequest {
     @Past
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate nascimento;
-    private List<@NotBlank @Size(max = 32) @EhUmaPalavra String> stack;
+    private List<@NotBlank @Size(max = 32) String> stack;
 
     public NovaPessoaRequest(@NotBlank String apelido, @NotBlank String nome, @NotNull @Past LocalDate nascimento) {
         super();

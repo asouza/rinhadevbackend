@@ -69,7 +69,7 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.8.1</version>
 					<configuration>
-						<release>20</release>
+						<release>17</release>
 						<compilerArgs>
 							<arg>--enable-preview</arg>
 							<arg>-parameters</arg>

@@ -37,7 +37,7 @@ public class Pessoa {
     private @NotNull @Past LocalDate nascimento;
     //validacao que só pode aceitar palavras
     @ElementCollection
-    private List<@NotBlank @Size(max = 32) @EhUmaPalavra String> stack = new ArrayList<>();
+    private List<@NotBlank @Size(max = 32) String> stack = new ArrayList<>();
     @NotNull
     private UUID codigo = UUID.randomUUID();    
     private String pesquisaRapida;
